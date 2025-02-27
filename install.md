@@ -20,3 +20,5 @@ if [ "$create_admin" == "y" ]; then
 fi
 
 echo "Cấu hình hoàn tất! Hãy chạy python manage.py runserver để khởi động dự án."
+# Run Docker
+docker-compose up --build -d
