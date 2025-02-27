@@ -1,23 +1,53 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="form-container">
-    <h2 class="text-center">Đăng ký</h2>
-    <form method="POST">
+<div class="container mt-4">
+    <h2 class="text-center">Đăng ký tài khoản</h2>
+
+    <!-- Hiển thị thông báo lỗi -->
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form method="POST" class="border p-4 rounded shadow-sm bg-light">
         {% csrf_token %}
+        
         <div class="mb-3">
             <label for="id_username" class="form-label">Tên đăng nhập:</label>
-            <input type="text" name="username" id="id_username" class="form-control" required>
+            <input type="text" name="username" id="id_username" class="form-control" value="{{ form.username.value|default:'' }}" required>
         </div>
+
+        <div class="mb-3">
+            <label for="id_email" class="form-label">Email:</label>
+            <input type="email" name="email" id="id_email" class="form-control" value="{{ form.email.value|default:'' }}" required>
+        </div>
+
         <div class="mb-3">
             <label for="id_password1" class="form-label">Mật khẩu:</label>
             <input type="password" name="password1" id="id_password1" class="form-control" required>
         </div>
+
         <div class="mb-3">
             <label for="id_password2" class="form-label">Xác nhận mật khẩu:</label>
             <input type="password" name="password2" id="id_password2" class="form-control" required>
         </div>
+
         <button type="submit" class="btn btn-success w-100">Đăng ký</button>
     </form>
+
+    <p class="text-center mt-3">
+        Đã có tài khoản? <a href="{% url 'login' %}">Đăng nhập ngay</a>
+    </p>
 </div>
 {% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="landing-container text-center">
+    <h1 class="display-4">To_Do_List</h1>
+    <p class="lead">Quản lý công việc dễ dàng và hiệu quả</p>
+    <a href="{% url 'register' %}" class="btn btn-success btn-lg">Bắt đầu ngay</a>
+    <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Đăng nhập</a>
+</div>
+{% endblock %}

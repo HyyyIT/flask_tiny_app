@@ -8,7 +8,14 @@ from django.utils import timezone
 from .forms import CustomUserCreationForm
 from .models import  CustomUser
 from django.conf import settings
+from .models import Task
+from django.utils import timezone
+from django.db import connection
 
+
+# Trang chủ
+def landing_page(request):
+    return render(request, 'landing.html')
 
 # Kiểm tra quyền admin
 def is_admin(user):
@@ -19,7 +26,9 @@ def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)  # Chưa lưu vào database ngay
+            user.is_active = True  # Kích hoạt tài khoản
+            user.save()  # Lưu tài khoản vào database
             auth_login(request, user)
             messages.success(request, "Đăng ký thành công!")
             return redirect('to_do_list')
@@ -27,7 +36,6 @@ def register(request):
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
 
-# Đăng nhập
 def login(request):
     if request.method == 'POST':
         username = request.POST.get('username', '')
@@ -36,12 +44,14 @@ def login(request):
         if user is not None:
             if user.is_active:
                 auth_login(request, user)
-                return redirect('to_do_list')
+                messages.success(request, f"Chào mừng {user.username}! Bạn đang đăng nhập với quyền: {'Admin' if user.is_superuser else 'User'}")
+                return redirect('admin_dashboard' if user.is_superuser else 'to_do_list')
             else:
                 messages.error(request, "Tài khoản của bạn đã bị khóa.")
         else:
             messages.error(request, "Tên đăng nhập hoặc mật khẩu không đúng.")
     return render(request, 'login.html')
+
 
 # Đăng xuất
 def logout(request):
@@ -51,8 +61,8 @@ def logout(request):
 
 @login_required
 def to_do_list(request):
-    return render(request, 'to_do_list.html')
-
+    tasks = Task.objects.filter(user=request.user).order_by('id')
+    return render(request, 'to_do_list.html', {'tasks': tasks})
 
 # Trang quản trị Admin
 @login_required
@@ -111,3 +121,59 @@ def reset_user_password(request, user_id):
         return redirect('admin_dashboard')
 
     return render(request, 'reset-user-password.html', {'user': user})
+# Danh sách nhiệm vụ của người dùng
+@login_required
+def to_do_list(request):
+    tasks = Task.objects.filter(user=request.user)
+    return render(request, 'to_do_list.html', {'tasks': tasks})
+
+# Xóa nhiều nhiệm vụ cùng lúc và reset ID
+@login_required
+def delete_multiple_tasks(request):
+    if request.method == "POST":
+        task_ids = request.POST.getlist("task_ids")
+        Task.objects.filter(id__in=task_ids, user=request.user).delete()
+        messages.success(request, "Các nhiệm vụ đã được xóa thành công.")
+        reset_task_ids()
+    return redirect('to_do_list')
+# Thêm công việc với timestamp
+@login_required
+def add_task(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        if title:
+            Task.objects.create(user=request.user, title=title, completed=False, created_at=timezone.now(), updated_at=timezone.now())
+            messages.success(request, "Công việc đã được thêm!")
+            reset_task_ids()
+    return redirect("to_do_list")
+
+
+
+# Chỉnh sửa công việc với timestamp
+@login_required 
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user=request.user)
+    if request.method == "POST":
+        task.title = request.POST.get("title", task.title)
+        task.completed = "completed" in request.POST
+        task.updated_at = timezone.now()
+        task.save()
+        messages.success(request, "Công việc đã được cập nhật!")
+        return redirect("to_do_list")
+    return render(request, "edit_task.html", {"task": task})
+
+# Xóa công việc và reset ID
+@login_required
+def delete_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user=request.user)
+    task.delete()
+    messages.success(request, "Công việc đã bị xóa!")
+    reset_task_ids()
+    return redirect("to_do_list")
+
+# Hàm reset lại ID sau khi xóa
+def reset_task_ids():
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            UPDATE sqlite_sequence SET seq = 0 WHERE name = 'to_do_list_task';
+        """)

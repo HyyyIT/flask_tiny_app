@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            {% comment %} <a class="navbar-brand" href="{% url 'landing_page' %}">HOME</a> {% endcomment %}
+            <a class="navbar-brand" href="{% url 'landing_page' %}">HOME</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Chỉnh sửa công việc</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="task_title" class="form-label">Tên công việc:</label>
+            <input type="text" name="title" id="task_title" class="form-control" value="{{ task.title }}" required>
+        </div>
+        
+        <div class="mb-3 form-check">
+            <input type="checkbox" name="completed" id="task_completed" class="form-check-input" {% if task.completed %}checked{% endif %}>
+            <label for="task_completed" class="form-check-label">Hoàn thành</label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        <a href="{% url 'to_do_list' %}" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
+{% endblock %}
