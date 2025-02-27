@@ -58,11 +58,11 @@
 </ul>
 
 ### Bước 1: Clone repository  
-```sh
+
 mkdir TaskFlow
 cd TaskFlow
 git clone https://github.com/HyyyIT/taskflow.git
-Bước 2: Tạo môi trường ảo & cài đặt dependencies
+### Bước 2: Tạo môi trường ảo & cài đặt dependencies
 sh
 Copy
 Edit
@@ -70,15 +70,17 @@ python -m venv venv
 source venv/bin/activate  # Trên macOS/Linux
 venv\Scripts\activate     # Trên Windows
 pip install -r requirements.txt
-Bước 3: Chạy ứng dụng
+### Bước 3: Chạy ứng dụng
 sh
 Copy
 Edit
 python manage.py runserver
 <p>Ứng dụng sẽ chạy tại: <a href="http://127.0.0.1:8000/" target="_blank">http://127.0.0.1:8000/</a></p>
-🚀 Công nghệ sử dụng
+
+### 🚀 Công nghệ sử dụng
 <ul> <li><strong>Backend:</strong> Django</li> <li><strong>Frontend:</strong> HTML, CSS (Bootstrap)</li> <li><strong>Database:</strong> SQLite</li> </ul>
-📞 Liên hệ & Hỗ trợ
+
+### 📞 Liên hệ & Hỗ trợ
 📧 <strong>Email:</strong>
 
 <ul> <li><a href="mailto:huy298445@gmail.com">huy298445@gmail.com</a></li> <li><a href="mailto:dodat2004py@gmail.com">dodat2004py@gmail.com</a></li> </ul>
