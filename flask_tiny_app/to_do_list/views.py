@@ -10,6 +10,9 @@ from .models import  CustomUser
 from django.conf import settings
 
 
+
+def landing_page(request):
+    return render(request, 'landing.html')  # Trang landing page khi vào trang chủ
 # Đăng ký tài khoản
 def register(request):
     if request.method == 'POST':
