@@ -1,49 +1,89 @@
-# flask-tiny-app-
-a. Thông tin cá nhân (Họ tên, mã sinh viên)
-Sinh viên 1:
-Họ tên: Đỗ Tấn Đạt
-Mã sinh viên: 22648601 
-Sinh viên 2: Nguyễn Đăng Tuấn Huy
-Mã sinh viên: 22658341
+<h1 align="center">🚀 TaskFlow - Ứng dụng Quản lý Công Việc Hiệu Quả 🚀</h1>
 
-b. Mô tả project (mô tả ý tưởng mà bạn dự định làm)
-TaskFlow - Ứng dụng Quản lý Công việc Hiệu Quả
-Mô tả tổng quan:
-TaskFlow giúp cá nhân và nhóm làm việc dễ dàng lập kế hoạch, theo dõi và hoàn thành nhiệm vụ. Ứng dụng tích hợp hệ thống thông báo thông minh và hỗ trợ làm việc nhóm, giúp tăng hiệu suất làm việc và tối ưu hóa quy trình quản lý công việc.
+## 📌 Giới thiệu  
+<p><strong>TaskFlow</strong> là một ứng dụng quản lý công việc giúp cá nhân và nhóm làm việc dễ dàng lập kế hoạch, theo dõi và hoàn thành nhiệm vụ.</p>
 
-Các chức năng chính:
-1. Hệ thống đăng nhập & đăng ký
-Đăng ký tài khoản bằng email và mật khẩu.
-Hỗ trợ xác thực qua email (tùy chọn).
-Đăng nhập bảo mật với mật khẩu mã hóa.
-Chức năng "Quên mật khẩu" để đặt lại mật khẩu qua email.
-2. Trang quản trị (Admin Dashboard)
-Quản lý người dùng: Danh sách tất cả tài khoản người dùng.
-Khóa/Mở khóa tài khoản: Người dùng bị khóa sẽ không thể đăng nhập và nhận được thông báo “Tài khoản của bạn đã bị khóa.”
-Reset mật khẩu: Admin có thể đặt lại mật khẩu cho người dùng.
-Tìm kiếm & lọc người dùng: Hỗ trợ tìm kiếm theo email, trạng thái tài khoản.
-3. Quản lý bài viết (posts) hoặc nhiệm vụ (tasks)
-Người dùng có thể tạo, chỉnh sửa, xóa bài viết hoặc nhiệm vụ.
-Xóa nhiều bài viết/nhiệm vụ cùng lúc để tiết kiệm thời gian.
-Gắn thẻ (tags) cho nhiệm vụ để phân loại dễ dàng.
-Bộ lọc nâng cao giúp tìm kiếm nhiệm vụ theo trạng thái (đang thực hiện, đã hoàn thành, quá hạn).
-4. Phân trang (Pagination)
-Mặc định hiển thị 10 bài viết/nhiệm vụ mỗi trang.
-Người dùng có thể điều hướng giữa các trang để xem thêm nội dung.
-Hỗ trợ tùy chỉnh số lượng nhiệm vụ hiển thị trên mỗi trang.
-5. Hệ thống thông báo (MỚI)
-Thông báo thời gian thực: Hiển thị thông báo khi có nhiệm vụ sắp đến hạn, khi có thay đổi trong nhóm hoặc khi tài khoản bị khóa.
-Email nhắc nhở: Gửi email thông báo nhiệm vụ sắp đến hạn hoặc chưa hoàn thành.
-Thông báo đẩy (push notification): Nếu người dùng sử dụng ứng dụng trên di động, hệ thống có thể gửi thông báo đẩy.
-Tùy chỉnh thông báo: Người dùng có thể bật/tắt thông báo cho từng loại sự kiện.
-6. Hỗ trợ nhóm (Teamwork) (MỚI)
-Tạo nhóm làm việc: Người dùng có thể tạo nhóm và mời thành viên vào nhóm.
-Phân quyền trong nhóm:
-Chủ nhóm (Owner): Quản lý nhóm, thêm/xóa thành viên, phân quyền.
-Quản lý (Manager): Quản lý nhiệm vụ trong nhóm, giao việc cho thành viên khác.
-Thành viên (Member): Thực hiện nhiệm vụ được giao.
-Giao nhiệm vụ nhóm: Cho phép giao nhiệm vụ cho từng thành viên hoặc cả nhóm.
-Theo dõi tiến độ: Hiển thị tiến độ hoàn thành của từng nhiệm vụ và của cả nhóm.
-Bình luận & trao đổi: Cho phép thành viên nhóm bình luận trên từng nhiệm vụ để trao đổi công việc.
-c. Hướng dẫn cài đặt, chạy 
-d. Link project đã triển khai của bạn
+---
+
+## 👨‍💻 Nhóm phát triển  
+<ul>
+  <li><strong>📌 Đỗ Tấn Đạt</strong> - Mã sinh viên: <code>22648601</code></li>
+  <li><strong>📌 Nguyễn Đăng Tuấn Huy</strong> - Mã sinh viên: <code>22658341</code></li>
+</ul>
+
+---
+
+## 🌟 Chức năng chính  
+
+### 🔐 Hệ thống đăng nhập & đăng ký  
+<ul>
+  <li>✔️ Đăng ký tài khoản bằng email và mật khẩu.</li>
+  <li>✔️ Xác thực qua email (tùy chọn).</li>
+  <li>✔️ Đăng nhập bảo mật với mật khẩu mã hóa.</li>
+  <li>✔️ Chức năng <strong>"Quên mật khẩu"</strong> để đặt lại mật khẩu qua email.</li>
+</ul>
+
+### 🛠️ Trang quản trị (Admin Dashboard)  
+<ul>
+  <li>✔️ Quản lý danh sách tài khoản người dùng.</li>
+  <li>✔️ <strong>Khóa/Mở khóa tài khoản:</strong> Người dùng bị khóa sẽ không thể đăng nhập và nhận được thông báo.</li>
+  <li>✔️ <strong>Reset mật khẩu:</strong> Admin có thể đặt lại mật khẩu cho người dùng.</li>
+  <li>✔️ <strong>Tìm kiếm & lọc người dùng</strong> theo email, trạng thái tài khoản.</li>
+</ul>
+
+### 📌 Quản lý nhiệm vụ (Tasks)  
+<ul>
+  <li>✔️ <strong>Tạo, chỉnh sửa, xóa</strong> nhiệm vụ.</li>
+  <li>✔️ <strong>Xóa nhiều nhiệm vụ cùng lúc</strong> để tiết kiệm thời gian.</li>
+  <li>✔️ <strong>Gắn thẻ (tags)</strong> để phân loại nhiệm vụ.</li>
+  <li>✔️ <strong>Bộ lọc nâng cao</strong> giúp tìm kiếm nhiệm vụ theo trạng thái.</li>
+</ul>
+
+### 📊 Phân trang (Pagination)  
+<ul>
+  <li>✔️ Mặc định hiển thị <strong>10 nhiệm vụ mỗi trang</strong>.</li>
+  <li>✔️ Hỗ trợ <strong>chuyển trang nhanh</strong> với giao diện trực quan.</li>
+  <li>✔️ Tùy chỉnh số lượng nhiệm vụ hiển thị trên mỗi trang.</li>
+</ul>
+
+---
+
+## 🛠️ Hướng dẫn cài đặt & chạy  
+
+### Yêu cầu hệ thống  
+<ul>
+  <li>Python 3.x</li>
+  <li>Django</li>
+  <li>Thư viện hỗ trợ: <code>django-crispy-forms</code>, <code>crispy-bootstrap5</code></li>
+</ul>
+
+### Bước 1: Clone repository  
+
+`mkdir TaskFlow` <br>
+`cd TaskFlow` <br>
+`git clone https://github.com/HyyyIT/taskflow.git` <br>
+### Bước 2: Tạo môi trường ảo & cài đặt dependencies
+
+`python -m venv venv` <br>
+`source venv/bin/activate` <br># Trên macOS/Linux
+`venv\Scripts\activate` <br>    # Trên Windows
+`pip install -r requirements.txt` <br>
+
+### Bước 3: Chạy ứng dụng
+
+`python manage.py runserver`<br>
+<p>Ứng dụng sẽ chạy tại: <a href="http://127.0.0.1:8000/" target="_blank">http://127.0.0.1:8000/</a></p>
+
+### 🚀 Công nghệ sử dụng
+<ul> <li><strong>Backend:</strong> Django</li> <li><strong>Frontend:</strong> HTML, CSS (Bootstrap)</li> <li><strong>Database:</strong> SQLite</li> </ul>
+
+### 📞 Liên hệ & Hỗ trợ
+📧 <strong>Email:</strong>
+
+<ul> <li><a href="mailto:huy298445@gmail.com">huy298445@gmail.com</a></li> <li><a href="mailto:dodat2004py@gmail.com">dodat2004py@gmail.com</a></li> </ul>
+🐙 <strong>GitHub:</strong>
+
+<ul> <li><a href="https://github.com/DanieSalin" target="_blank">DanieSalin</a></li> <li><a href="https://github.com/HyyyIT" target="_blank">HyyyIT</a></li> </ul>
+💼 <strong>LinkedIn:</strong>
+
+<ul> <li><a href="https://www.linkedin.com/in/dotandatdaniel/" target="_blank">Đỗ Tấn Đạt</a></li> <li><a href="https://www.linkedin.com/in/nguyen-huy-94ba40327/" target="_blank">Nguyễn Đăng Tuấn Huy</a></li> </ul> <p align="center">⭐ <strong>Hãy nhấn Star 🌟 repo nếu bạn thấy dự án hữu ích!</strong> ⭐</p> 
