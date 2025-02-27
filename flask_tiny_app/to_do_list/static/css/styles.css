@@ -1,0 +1,91 @@
+.form-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+}
+
+.form-container h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    color: #2c3e50;
+}
+
+.form-container .form-control {
+    border: 1px solid #bdc3c7;
+    background: #ecf0f1;
+    color: #333;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-container .form-control:focus {
+    background: white;
+    box-shadow: 0px 0px 8px rgba(52, 152, 219, 0.3);
+}
+
+/* ====== Nút bấm hiện đại ====== */
+.btn-primary, .btn-success {
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+    background: #3498db;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 8px rgba(52, 152, 219, 0.4);
+}
+
+.btn-success {
+    background: #27ae60;
+    border: none;
+}
+
+.btn-success:hover {
+    background: #219150;
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 8px rgba(39, 174, 96, 0.4);
+}
+
+/* ====== Navbar ====== */
+.navbar {
+    background: #2c3e50;
+    padding: 15px;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ecf0f1;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #3498db;
+}
+
+/* ====== Footer ====== */
+.footer {
+    background: #2c3e50;
+    margin-top: 50px;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: white;
+}

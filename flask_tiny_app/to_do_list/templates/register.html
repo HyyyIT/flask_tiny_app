@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-container">
+    <h2 class="text-center">Đăng ký</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Tên đăng nhập:</label>
+            <input type="text" name="username" id="id_username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="id_password1" class="form-label">Mật khẩu:</label>
+            <input type="password" name="password1" id="id_password1" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="id_password2" class="form-label">Xác nhận mật khẩu:</label>
+            <input type="password" name="password2" id="id_password2" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Đăng ký</button>
+    </form>
+</div>
+{% endblock %}
