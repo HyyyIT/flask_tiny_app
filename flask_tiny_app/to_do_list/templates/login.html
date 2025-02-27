@@ -3,6 +3,16 @@
 {% block content %}
 <div class="form-container">
     <h2 class="text-center">Đăng nhập</h2>
+
+    <!-- Hiển thị thông báo lỗi -->
+    {% if messages %}
+        <div class="alert alert-danger">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <form method="POST">
         {% csrf_token %}
         <div class="mb-3">

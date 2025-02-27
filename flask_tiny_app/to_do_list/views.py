@@ -41,18 +41,18 @@ def login(request):
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             if user.is_active:
                 auth_login(request, user)
                 messages.success(request, f"Chào mừng {user.username}! Bạn đang đăng nhập với quyền: {'Admin' if user.is_superuser else 'User'}")
                 return redirect('admin_dashboard' if user.is_superuser else 'to_do_list')
             else:
-                messages.error(request, "Tài khoản của bạn đã bị khóa.")
+                messages.error(request, "Tên đăng nhập hoặc mật khẩu không đúng.")  # Thêm thông báo khi bị khóa
         else:
-            messages.error(request, "Tên đăng nhập hoặc mật khẩu không đúng.")
+            messages.error(request, "Tài khoản của bạn đã bị khóa bởi quản trị viên.")
+    
     return render(request, 'login.html')
-
-
 # Đăng xuất
 def logout(request):
     auth_logout(request)
