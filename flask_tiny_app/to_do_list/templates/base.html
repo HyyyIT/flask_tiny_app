@@ -10,16 +10,28 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            {% comment %} <a class="navbar-brand" href="{% url 'landing_page' %}">HOME</a> {% endcomment %}
+            <a class="navbar-brand" href="{% url 'landing_page' %}">HOME</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'task_list' %}">Danh sách công việc</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Đăng xuất</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Xin chào, {{ user.username }}!</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Vai trò: {% if user.is_superuser %}Admin{% else %}User{% endif %}
+                            </a>
+                        </li>
+                        {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'task_list' %}">Danh sách công việc</a></li> {% endcomment %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Đăng xuất</a>
+                        </li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Đăng nhập</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Đăng ký</a></li>
                     {% endif %}
+                
+
                 </ul>
             </div>
         </div>
@@ -28,6 +40,7 @@
     <div class="container mt-4">
         {% block content %}{% endblock %}
     </div>
+    
 
     <footer class="footer text-center py-3">
         <p>© 2025 To_Do_List</p>
