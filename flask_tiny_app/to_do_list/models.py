@@ -19,6 +19,8 @@ class CustomUser(AbstractUser):
     )
     failed_login_attempts = models.IntegerField(default=0)
 
+    # email = models.EmailField(unique=True)  # Thêm email vào model
+
     def __str__(self):
         return self.username 
 

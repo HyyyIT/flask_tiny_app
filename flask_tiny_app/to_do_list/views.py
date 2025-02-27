@@ -20,20 +20,29 @@ def landing_page(request):
 # Kiểm tra quyền admin
 def is_admin(user):
     return user.is_superuser
-
-# Đăng ký tài khoản
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)  # Chưa lưu vào database ngay
+            user = form.save(commit=False)  # Tạo user nhưng chưa lưu vào database
             user.is_active = True  # Kích hoạt tài khoản
-            user.save()  # Lưu tài khoản vào database
-            auth_login(request, user)
-            messages.success(request, "Đăng ký thành công!")
-            return redirect('to_do_list')
+            user.email = form.cleaned_data['email']  # Lưu email
+            user.save()  # Lưu user vào database
+
+            # Gửi email chào mừng sau khi đăng ký
+            send_mail(
+                'Chào mừng bạn đến với hệ thống',
+                f'Xin chào {user.username}, tài khoản của bạn đã được tạo thành công!',
+                settings.DEFAULT_FROM_EMAIL,
+                [user.email],
+                fail_silently=True,
+            )
+
+            messages.success(request, "Đăng ký thành công! Vui lòng đăng nhập.")
+            return redirect('login')  # Chuyển hướng đến trang đăng nhập
     else:
         form = CustomUserCreationForm()
+
     return render(request, 'register.html', {'form': form})
 
 # Số lần nhập sai tối đa
