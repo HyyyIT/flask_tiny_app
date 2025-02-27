@@ -61,7 +61,12 @@ def logout(request):
 
 @login_required
 def to_do_list(request):
-    tasks = Task.objects.filter(user=request.user).order_by('id')
+    tasks_list = Task.objects.filter(user=request.user).order_by('id')
+    paginator = Paginator(tasks_list, 10)  # 10 công việc mỗi trang
+
+    page_number = request.GET.get('page')
+    tasks = paginator.get_page(page_number)
+
     return render(request, 'to_do_list.html', {'tasks': tasks})
 
 # Trang quản trị Admin
@@ -121,11 +126,18 @@ def reset_user_password(request, user_id):
         return redirect('admin_dashboard')
 
     return render(request, 'reset-user-password.html', {'user': user})
-# Danh sách nhiệm vụ của người dùng
 @login_required
 def to_do_list(request):
-    tasks = Task.objects.filter(user=request.user)
-    return render(request, 'to_do_list.html', {'tasks': tasks})
+    tasks_list = Task.objects.filter(user=request.user).order_by('id')
+    paginator = Paginator(tasks_list, 10)  # 10 công việc mỗi trang
+
+    page_number = request.GET.get('page')
+    tasks = paginator.get_page(page_number)
+
+    return render(request, 'to_do_list.html', {
+        'tasks': tasks,
+        'paginator': paginator,
+    })
 
 # Xóa nhiều nhiệm vụ cùng lúc và reset ID
 @login_required
@@ -136,17 +148,23 @@ def delete_multiple_tasks(request):
         messages.success(request, "Các nhiệm vụ đã được xóa thành công.")
         reset_task_ids()
     return redirect('to_do_list')
-# Thêm công việc với timestamp
+
 @login_required
 def add_task(request):
     if request.method == "POST":
         title = request.POST.get("title")
         if title:
             Task.objects.create(user=request.user, title=title, completed=False, created_at=timezone.now(), updated_at=timezone.now())
-            messages.success(request, "Công việc đã được thêm!")
-            reset_task_ids()
-    return redirect("to_do_list")
 
+            # Tính toán số trang mới nhất sau khi thêm công việc
+            tasks_list = Task.objects.filter(user=request.user).order_by('id')
+            paginator = Paginator(tasks_list, 10)  # 10 công việc mỗi trang
+            last_page = paginator.num_pages  # Trang cuối cùng
+
+            messages.success(request, "Công việc đã được thêm!")
+            return redirect(f"{request.path}?page={last_page}")  # Điều hướng đến trang cuối cùng
+
+    return redirect("to_do_list")
 
 
 # Chỉnh sửa công việc với timestamp
