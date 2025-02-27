@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Quản lý Người Dùng</h2>
+    
+    <!-- Hiển thị thông báo -->
+    {% if messages %}
+        <div class="alert alert-info">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên người dùng</th>
+                <th>Email</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if user.is_active %}
+                        <span class="text-success">Hoạt động</span>
+                    {% else %}
+                        <span class="text-danger">Bị khóa</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'toggle_user_status' user.id %}" class="btn btn-warning btn-sm">
+                        {% if user.is_active %}Khóa{% else %}Mở khóa{% endif %}
+                    </a>
+                    <a href="{% url 'reset_user_password' user.id %}" class="btn btn-danger btn-sm">
+                        Reset Mật Khẩu
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -14,7 +14,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'task_list' %}">Danh sách công việc</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'to_do_list' %}">Danh sách công việc</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Đăng xuất</a></li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Đăng nhập</a></li>

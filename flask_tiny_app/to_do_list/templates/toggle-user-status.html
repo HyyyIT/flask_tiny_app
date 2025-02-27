@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Khóa/Mở Khóa Tài Khoản</h2>
+    <p>Bạn có chắc chắn muốn thay đổi trạng thái của tài khoản <strong>{{ user.username }}</strong>?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-warning">
+            {% if user.is_active %}Khóa tài khoản{% else %}Mở khóa tài khoản{% endif %}
+        </button>
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
+{% endblock %}

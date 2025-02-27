@@ -10,6 +10,10 @@ from .models import  CustomUser
 from django.conf import settings
 
 
+# Kiểm tra quyền admin
+def is_admin(user):
+    return user.is_superuser
+
 # Đăng ký tài khoản
 def register(request):
     if request.method == 'POST':
@@ -44,24 +48,66 @@ def logout(request):
     auth_logout(request)
     return redirect('login')
 
-# # Quên mật khẩu
-# def password_reset(request):
-#     if request.method == 'POST':
-#         form = PasswordResetForm(request.POST)
-#         if form.is_valid():
-#             user = form.get_user()
-#             new_password = form.cleaned_data['new_password']
-#             user.set_password(new_password)
-#             user.save()
-#             send_mail(
-#                 'Đặt lại mật khẩu thành công',
-#                 'Mật khẩu của bạn đã được đặt lại thành công.',
-#                 settings.DEFAULT_FROM_EMAIL,
-#                 [user.email],
-#             )
-#             messages.success(request, "Mật khẩu đã được cập nhật. Hãy đăng nhập lại.")
-#             return redirect('login')
-#     else:
-#         form = PasswordResetForm()
-#     return render(request, 'password_reset.html', {'form': form})
 
+@login_required
+def to_do_list(request):
+    return render(request, 'to_do_list.html')
+
+
+# Trang quản trị Admin
+@login_required
+@user_passes_test(is_admin)
+def admin_dashboard(request):
+    users = CustomUser.objects.all()
+    return render(request, 'admin_dashboard.html', {'users': users})
+
+
+# Khóa/Mở khóa tài khoản người dùng
+@login_required
+@user_passes_test(is_admin)
+def toggle_user_status(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    
+    if request.method == "POST":
+        user.is_active = not user.is_active
+        user.save()
+        
+        # Thêm thông báo khi tài khoản bị khóa
+        if not user.is_active:
+            send_mail(
+                'Tài khoản của bạn đã bị khóa',
+                'Tài khoản của bạn đã bị khóa bởi quản trị viên.',
+                settings.DEFAULT_FROM_EMAIL,
+                [user.email],
+            )
+            messages.warning(request, f"Tài khoản {user.username} đã bị khóa.")
+        else:
+            messages.success(request, f"Tài khoản {user.username} đã được mở khóa.")
+
+        return redirect('admin_dashboard')
+
+    return render(request, 'toggle-user-status.html', {'user': user})
+
+# Reset mật khẩu người dùng
+@login_required
+@user_passes_test(is_admin)
+def reset_user_password(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    
+    if request.method == "POST":
+        new_password = request.POST.get("new_password", "newpassword123")
+        user.set_password(new_password)
+        user.save()
+        
+        # Gửi email thông báo mật khẩu mới
+        send_mail(
+            'Mật khẩu của bạn đã được đặt lại',
+            f'Admin đã đặt lại mật khẩu của bạn. Mật khẩu mới là: {new_password}',
+            settings.DEFAULT_FROM_EMAIL,
+            [user.email],
+        )
+
+        messages.success(request, f"Mật khẩu của {user.username} đã được đặt lại.")
+        return redirect('admin_dashboard')
+
+    return render(request, 'reset-user-password.html', {'user': user})
