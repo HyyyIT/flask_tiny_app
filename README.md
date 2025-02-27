@@ -59,22 +59,19 @@
 
 ### Bước 1: Clone repository  
 
-mkdir TaskFlow
-cd TaskFlow
-git clone https://github.com/HyyyIT/taskflow.git
+`mkdir TaskFlow` <br>
+`cd TaskFlow` <br>
+`git clone https://github.com/HyyyIT/taskflow.git` <br>
 ### Bước 2: Tạo môi trường ảo & cài đặt dependencies
-sh
-Copy
-Edit
-python -m venv venv
-source venv/bin/activate  # Trên macOS/Linux
-venv\Scripts\activate     # Trên Windows
-pip install -r requirements.txt
+
+`python -m venv venv` <br>
+`source venv/bin/activate` <br># Trên macOS/Linux
+`venv\Scripts\activate` <br>    # Trên Windows
+`pip install -r requirements.txt` <br>
+
 ### Bước 3: Chạy ứng dụng
-sh
-Copy
-Edit
-python manage.py runserver
+
+`python manage.py runserver`<br>
 <p>Ứng dụng sẽ chạy tại: <a href="http://127.0.0.1:8000/" target="_blank">http://127.0.0.1:8000/</a></p>
 
 ### 🚀 Công nghệ sử dụng
@@ -89,4 +86,4 @@ python manage.py runserver
 <ul> <li><a href="https://github.com/DanieSalin" target="_blank">DanieSalin</a></li> <li><a href="https://github.com/HyyyIT" target="_blank">HyyyIT</a></li> </ul>
 💼 <strong>LinkedIn:</strong>
 
-<ul> <li><a href="https://www.linkedin.com/in/dotandatdaniel/" target="_blank">Đỗ Tấn Đạt</a></li> <li><a href="https://www.linkedin.com/in/nguyen-huy-94ba40327/" target="_blank">Nguyễn Đăng Tuấn Huy</a></li> </ul> <p align="center">⭐ <strong>Hãy nhấn Star 🌟 repo nếu bạn thấy dự án hữu ích!</strong> ⭐</p> ```
+<ul> <li><a href="https://www.linkedin.com/in/dotandatdaniel/" target="_blank">Đỗ Tấn Đạt</a></li> <li><a href="https://www.linkedin.com/in/nguyen-huy-94ba40327/" target="_blank">Nguyễn Đăng Tuấn Huy</a></li> </ul> <p align="center">⭐ <strong>Hãy nhấn Star 🌟 repo nếu bạn thấy dự án hữu ích!</strong> ⭐</p> 
