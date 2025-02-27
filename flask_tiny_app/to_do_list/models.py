@@ -17,6 +17,7 @@ class CustomUser(AbstractUser):
         help_text="Specific permissions for this user.",
         verbose_name="user permissions",
     )
+    failed_login_attempts = models.IntegerField(default=0)
 
     def __str__(self):
         return self.username 
@@ -32,3 +33,4 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+

@@ -36,6 +36,10 @@ def register(request):
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
 
+# Số lần nhập sai tối đa
+MAX_LOGIN_ATTEMPTS = 5
+
+# Đăng nhập
 def login(request):
     if request.method == 'POST':
         username = request.POST.get('username', '')
@@ -45,13 +49,31 @@ def login(request):
         if user is not None:
             if user.is_active:
                 auth_login(request, user)
+                user.failed_login_attempts = 0  # Reset số lần nhập sai
+                user.save()
                 messages.success(request, f"Chào mừng {user.username}! Bạn đang đăng nhập với quyền: {'Admin' if user.is_superuser else 'User'}")
                 return redirect('admin_dashboard' if user.is_superuser else 'to_do_list')
             else:
-                messages.error(request, "Tên đăng nhập hoặc mật khẩu không đúng.")  # Thêm thông báo khi bị khóa
+                messages.error(request, "Tài khoản của bạn đã bị khóa.")
         else:
-            messages.error(request, "Tài khoản của bạn đã bị khóa bởi quản trị viên.")
-    
+            try:
+                user = CustomUser.objects.get(username=username)
+                user.failed_login_attempts += 1
+                if user.failed_login_attempts >= MAX_LOGIN_ATTEMPTS:
+                    user.is_active = False
+                    send_mail(
+                        'Tài khoản của bạn đã bị khóa',
+                        'Tài khoản của bạn đã bị khóa do nhập sai mật khẩu quá nhiều lần.',
+                        settings.DEFAULT_FROM_EMAIL,
+                        [user.email],
+                    )
+                    messages.error(request, "Tài khoản của bạn đã bị khóa do nhập sai mật khẩu quá nhiều lần.")
+                else:
+                    messages.error(request, "Tên đăng nhập hoặc mật khẩu không đúng.")
+                user.save()
+            except CustomUser.DoesNotExist:
+                messages.error(request, "Tên đăng nhập hoặc mật khẩu không đúng.")
+
     return render(request, 'login.html')
 # Đăng xuất
 def logout(request):
@@ -77,7 +99,6 @@ def admin_dashboard(request):
     return render(request, 'admin_dashboard.html', {'users': users})
 
 
-# Khóa/Mở khóa tài khoản người dùng
 @login_required
 @user_passes_test(is_admin)
 def toggle_user_status(request, user_id):
@@ -85,6 +106,7 @@ def toggle_user_status(request, user_id):
     
     if request.method == "POST":
         user.is_active = not user.is_active
+        user.failed_login_attempts = 0  # Reset số lần nhập sai khi mở khóa
         user.save()
         
         # Thêm thông báo khi tài khoản bị khóa
@@ -102,6 +124,7 @@ def toggle_user_status(request, user_id):
         return redirect('admin_dashboard')
 
     return render(request, 'toggle-user-status.html', {'user': user})
+
 
 # Reset mật khẩu người dùng
 @login_required
