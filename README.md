@@ -18,9 +18,7 @@
 ### 🔐 Hệ thống đăng nhập & đăng ký  
 <ul>
   <li>✔️ Đăng ký tài khoản bằng email và mật khẩu.</li>
-  <li>✔️ Xác thực qua email (tùy chọn).</li>
   <li>✔️ Đăng nhập bảo mật với mật khẩu mã hóa.</li>
-  <li>✔️ Chức năng <strong>"Quên mật khẩu"</strong> để đặt lại mật khẩu qua email.</li>
 </ul>
 
 ### 🛠️ Trang quản trị (Admin Dashboard)  
