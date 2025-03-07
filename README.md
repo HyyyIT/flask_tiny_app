@@ -35,7 +35,6 @@
 <ul>
   <li>✔️ <strong>Tạo, chỉnh sửa, xóa</strong> nhiệm vụ.</li>
   <li>✔️ <strong>Xóa nhiều nhiệm vụ cùng lúc</strong> để tiết kiệm thời gian.</li>
-  <li>✔️ <strong>Gắn thẻ (tags)</strong> để phân loại nhiệm vụ.</li>
   <li>✔️ <strong>Bộ lọc nâng cao</strong> giúp tìm kiếm nhiệm vụ theo trạng thái.</li>
 </ul>
 
